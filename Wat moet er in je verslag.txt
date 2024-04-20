@@ -1,0 +1,12 @@
+Wat moet er wel in? 
+- H0 en H1
+- geobserveerde testwaarde: bv t-waarde die R geeft of gemiddelde van een groep bij ongepaard of F-waarde... 
+- vrijheidsgraden bv bij F test, t-test... 
+- varianties bij ongepaarde variantie test
+- boxplotje met lijnen of punten in kleur
+- voorwaarden voor de test
+- p-waarde die R geeft
+- besluit
+
+Wat niet? 
+- betrouwbaarheidsinterval
