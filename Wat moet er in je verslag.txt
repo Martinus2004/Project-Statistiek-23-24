@@ -10,3 +10,5 @@ Wat moet er wel in?
 
 Wat niet? 
 - betrouwbaarheidsinterval
+
+TEST TEST TEST
