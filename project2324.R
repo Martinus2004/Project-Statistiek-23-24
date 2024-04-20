@@ -153,7 +153,7 @@ geluksscore_vrouw = ind_happy[ind_gender == "vrouw"]
 mean(geluksscore_man); mean(geluksscore_vrouw)
 
 # 0) geldt CLS
-length(geluksscore_man, na.omit = TRUE); length(geluksscore_vrouw, na.omit = TRUE) 
+length(geluksscore_man);length(geluksscore_vrouw) 
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
@@ -183,7 +183,8 @@ geluksscore_geen_betaald_werk = ind_happy[ind_atwork == "nee"]
 mean(geluksscore_betaald_werk, na.rm = TRUE); mean(geluksscore_geen_betaald_werk, na.rm = TRUE)
 
 # 0) geldt CLS
-length(geluksscore_betaald_werk, na.omit = TRUE); length(geluksscore_geen_betaald_werk, na.omit = TRUE) 
+length(geluksscore_betaald_werk)
+length(geluksscore_geen_betaald_werk) 
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
@@ -213,7 +214,7 @@ geluksscore_jongkind_en_alleenwonend = ind_happy[hh_nchild >=1 & hh_pos == "geen
 mean(geluksscore_jongkind_en_samenwonend, na.rm = TRUE); mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE)
 
 # 0) geldt CLS
-length(geluksscore_jongkind_en_samenwonendn, na.omit = TRUE); length(geluksscore_jongkind_en_alleenwonend, na.omit = TRUE) 
+length(geluksscore_jongkind_en_samenwonend); length(geluksscore_jongkind_en_alleenwonend)
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
