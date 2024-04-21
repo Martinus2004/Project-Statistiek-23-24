@@ -1,9 +1,6 @@
 # 3.1 Data inlezen en manipuleren
 
-people <- read.csv("~/School/Unief/2de jaar/Semester 2/Statistiek/Project/people2324.dat", sep=";", na.strings="-", stringsAsFactors=TRUE)
-
-# people <- read.csv("/cloud/project/people2324.dat", sep=";", na.strings="-", stringsAsFactors=TRUE)
-
+people <- read.csv("~/School/Unief/2de jaar/Semester 2/Statistiek/Project/Project-Statistiek-23-24/people2324.dat", sep=";", na.strings="-", stringsAsFactors=TRUE)
 
 # geef categorische vars passende labels: geslacht, opleidingsniveau,
 # betaald werk, rol in het gezin
@@ -209,8 +206,8 @@ t.test(geluksscore_betaald_werk, geluksscore_geen_betaald_werk, paired = FALSE, 
 # test voor twee gemiddelde, ongepaarde groepen want we delen "geluksscore van ouders met kind" op in twee groepen
 # X = geluksscore van ouders met kind < 18 j én inwonende partner, Y = geluksscore van ouders met kind < 18 j zonder inwonende partner
 # H0: mu_X = mu_Y, H1: mu_X != mu_Y   
-geluksscore_jongkind_en_samenwonend = ind_happy[hh_nchild >=1 & hh_pos == "samenwonend met partner"]
-geluksscore_jongkind_en_alleenwonend = ind_happy[hh_nchild >=1 & hh_pos == "geen inwonende partner"]
+geluksscore_jongkind_en_samenwonend = ind_happy[hh_parent == "ja" & hh_pos == "samenwonend met partner"]
+geluksscore_jongkind_en_alleenwonend = ind_happy[hh_parent == "ja" & hh_pos == "geen inwonende partner"]
 mean(geluksscore_jongkind_en_samenwonend, na.rm = TRUE); mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE)
 
 # 0) geldt CLS
@@ -231,6 +228,29 @@ t.test(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend
 
 # p-waarde: 1.185 * 10^-5 <<< 0.05 dus we verwerpen H0, de afwijking is geen toeval maar significant
 # Besluit: obv de steekproef vinden we een significant verschil tussen de gelukscores van mensen met een kind die samen wonen met een partner
+
+
+# 3.3.3 associatie tussen veranderlijken
+
+# Ga na of er afhankelijkheid is tussen de geluksscore enerzijds en de (niet-binaire) veranderlijken anderzijds.
+
+# correlatietesten tussen geluksscore ~ leeftijd, netto inkomen, aantal -18, aantal +18, gezinsinkomen,
+# fysieke gezondheid, emotionele gezondheid, aantal uur vrije tijd
+
+# 1) Normaliteit testen
+
+shapiro.test(ind_happy) # => wijkt té sterk af van normale verdeling dus steeds spearman test obv rangen
+
+cor.test(ind_happy, ind_age, method = "spearman"); plot(ind_happy, ind_age)
+cor.test(ind_happy, ind_income, method = "spearman"); plot(ind_happy, ind_income)
+cor.test(ind_happy, hh_nchild, method = "spearman"); plot(ind_happy, hh_nchild)
+cor.test(ind_happy, hh_nadult, method = "spearman"); plot(ind_happy, hh_nadult)
+cor.test(ind_happy, hh_income, method = "spearman"); plot(ind_happy, hh_income)
+cor.test(ind_happy, health_fys, method = "spearman"); plot(ind_happy, health_fys)
+cor.test(ind_happy, health_emo, method = "spearman"); plot(ind_happy, health_emo)
+cor.test(ind_happy, leis_time, method = "spearman"); plot(ind_happy, leis_time)
+
+
 
 
 
