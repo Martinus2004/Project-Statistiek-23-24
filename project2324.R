@@ -27,21 +27,21 @@ table(ind_gender); table(ind_gender)/length(ind_gender) * 100; barplot(table(ind
 
 # ind_age = kwantitatief continue
 table(cut(ind_age, breaks = 20)); hist(ind_age); plot(ecdf(ind_age))
-mean(ind_age); sd(ind_age); range(ind_age); boxplot(ind_age)
+mean(ind_age); sd(ind_age); sd(ind_age)/sqrt(length(ind_age)); range(ind_age); boxplot(ind_age)
 
 # ind_edu = kwalitatief ordinaal
 table(ind_edu); table(ind_edu)/length(ind_edu) * 100; barplot(table(ind_edu))
 
 # ind_happy = kwantitatief continue
 table(ind_happy); hist(ind_happy); plot(ecdf(ind_happy))
-mean(ind_happy); sd(ind_happy); range(ind_happy); boxplot(ind_happy)
+mean(ind_happy); sd(ind_happy);sd(ind_happy)/sqrt(length(ind_happy)); range(ind_happy); boxplot(ind_happy)
 
 # ind_atwork = kwalitatief nominaal
 table(ind_atwork); table(ind_atwork)/length(ind_atwork) * 100; barplot(table(ind_atwork))
 
 # ind_income = kwantitatief continue
 hist(ind_income); plot(ecdf(ind_income))
-mean(ind_income); sd(ind_income); range(ind_income); boxplot(ind_income)
+mean(ind_income); sd(ind_income);sd(ind_income)/sqrt(length(ind_income)); range(ind_income); boxplot(ind_income)
 
 # hh_pos = kwalitatief nominaal
 table(hh_pos); table(hh_pos)/length(hh_pos) * 100; barplot(table(hh_pos))
@@ -54,19 +54,19 @@ table(hh_nchild); table(hh_nchild)/length(hh_nchild) * 100; barplot(table(hh_nch
 
 # hh_income = kwantitatief continue
 hist(hh_income); plot(ecdf(hh_income))
-mean(hh_income); sd(hh_income); range(hh_income); boxplot(hh_income)
+mean(hh_income); sd(hh_income);sd(hh_income)/sqrt(length(hh_income)); range(hh_income); boxplot(hh_income)
 
 # health_fys = kwantitatief continue
 hist(health_fys); plot(ecdf(health_fys))
-mean(health_fys); sd(health_fys); range(health_fys); boxplot(health_fys)
+mean(health_fys, na.rm = TRUE); sd(health_fys, na.rm = TRUE); sd(health_fys, na.rm = TRUE)/sqrt(length(health_fys)); range(health_fys, na.rm = TRUE); boxplot(health_fys, na.rm = TRUE)
 
 # health_emo = kwantitatief continue
 hist(health_emo); plot(ecdf(health_emo))
-mean(health_emo); sd(health_emo); range(health_emo); boxplot(health_emo)
+mean(health_emo, na.rm = TRUE); sd(health_emo, na.rm = TRUE); sd(health_emo, na.rm = TRUE)/sqrt(length(health_emo)); range(health_emo, na.rm = TRUE); boxplot(health_emo, na.rm = TRUE)
 
 # leis_time = kwantitatief continue
 hist(leis_time); plot(ecdf(leis_time))
-mean(leis_time); sd(leis_time); range(leis_time); boxplot(leis_time)
+mean(leis_time, na.rm = TRUE); sd(leis_time, na.rm = TRUE); sd(leis_time, na.rm = TRUE)/sqrt(length(leis_time)); range(leis_time, na.rm = TRUE); boxplot(leis_time)
 
 # hh_parent = kwantitatief discreet
 table(hh_parent); table(hh_parent)/length(hh_parent) * 100; barplot(table(hh_parent))
