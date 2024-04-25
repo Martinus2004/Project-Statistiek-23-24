@@ -252,5 +252,3 @@ cor.test(ind_happy, leis_time, method = "spearman"); plot(ind_happy, leis_time)
 
 
 
-
-
