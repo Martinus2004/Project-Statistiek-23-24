@@ -145,19 +145,21 @@ mean(ind_happy[hh_alone=="nee"])
 
 # 3.3.1: kenmerken van de steekproef
 
+
+
 # - proportie vrouwen en mannen in 2016 van onderzoek == proportie volgens StatBel?
 # StatBel: 4 368 849 mannen en 4 613 480  vrouwen = totaal 8 982 329 volwassenen
+
+# X = geslacht respondent, succes = "vrouw" 
 
 #p0 = 4 368 849 / 8 982 329 = proportie vrouwen populatie
 
 table(ind_gender); table(ind_gender)/length(ind_gender)
 data.frame("man SB" = 4368849/8982329, "vrouw SB" = 4613480/8982329)
 
-binom.test(length(ind_gender[ind_gender == "man"]), length(ind_gender), p = 4368849/8982329, alternative = "two.sided")
-2*(1 - pbinom(length(ind_gender[ind_gender == "man"]) - 1 , length(ind_gender), 4368849/8982329))
-
-binom.test(length(ind_gender[ind_gender == "vrouw"]), length(ind_gender), p = 4613480/8982329, alternative = "two.sided")
-2*(1 - pbinom(length(ind_gender[ind_gender == "vrouw"]) - 1 , length(ind_gender), 4613480/8982329))
+binom.test(914, length(ind_gender), p = 4613480/8982329, alternative = "two.sided")
+# p-waarde >> 0.05 en p0 in betrouwbaarheidsinterval, dus H1 verwerpen en H0 aanvaarden
+# besluit: de geobserveerde proportie vrouwen (en ook mannen) verschilt niet significant van de proportie die Statbel geeft
 
 
 # - verdeling leeftijd in 2016 van onderzoek == verdeling volgens StatBel?
@@ -181,7 +183,6 @@ leeftijd_verdeling_test$residuals
 
 # de 0-30 jaar groep is zeer sterk ondervertegenwoordigd maw véél te weinig van die leeftijdscategorie bevraagd
 # de andere leeftijdscategorieen buiten 30-40 jaar is beetje oververtegenwoordigd maw beetje teveel mensen bevraagd van die groep
-
 
 
 # - gemiddeld individuele netto belastbaar inkomen per inwoner in 2016 == gemiddelde volgens StatBel?
