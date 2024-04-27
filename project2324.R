@@ -158,7 +158,7 @@ binom.test(length(ind_gender[ind_gender == "man"]), length(ind_gender), p = 4368
 
 binom.test(length(ind_gender[ind_gender == "vrouw"]), length(ind_gender), p = 4613480/8982329, alternative = "two.sided")
 2*(1 - pbinom(length(ind_gender[ind_gender == "vrouw"]) - 1 , length(ind_gender), 4613480/8982329))
-
+# p-value = 0.2486, probability of success mannen = 0.4722864, probability of success vrouwen = 0.5277136, grote p-waarde => er is geen signififcant verschil
 
 # - verdeling leeftijd in 2016 van onderzoek == verdeling volgens StatBel?
 
@@ -317,4 +317,13 @@ cor.test(ind_happy, health_emo, method = "spearman"); plot(ind_happy, health_emo
 cor.test(ind_happy, leis_time, method = "spearman"); plot(ind_happy, leis_time)
 
 
+
+#3.3.4 Verklaren van de gelukscore
+# Eenvoudig regressiemodel voor geluk in functie van het totale beschikbare inkomen van het gezin en het tweede in functie van het tiendelige logaritmevan dat inkomen.
+model1=lm(ind_happy,hh_income)
+summary(model1)
+plot(ind_happy~hh_income)
+abline(model1, col='red')
+#Multiple R-squared:  0.02271,	Adjusted R-squared:  0.02215, F-statistic: 40.21 on 1 and 1730 DF,  p-value: 2.906e-10, t-waarde=6.341
+#kleine p-waarde en R-squared dus weinig verklaring van het geluk
 
