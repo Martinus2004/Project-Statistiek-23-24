@@ -35,6 +35,8 @@ table(ind_edu); table(ind_edu)/length(ind_edu) * 100; barplot(table(ind_edu))
 # ind_happy = kwantitatief continue
 table(ind_happy); hist(ind_happy); plot(ecdf(ind_happy))
 mean(ind_happy); sd(ind_happy);sd(ind_happy)/sqrt(length(ind_happy)); range(ind_happy); boxplot(ind_happy)
+happiness = cut(ind_happy, breaks = c(0,10,20,30,40,50,60,70,80,90,Inf)) #opdelen van scores in intervallen van elk 10 breed
+table(happiness); table(happiness)/length(na.omit(ind_happy))*100
 
 # ind_atwork = kwalitatief nominaal
 table(ind_atwork); table(ind_atwork)/length(ind_atwork) * 100; barplot(table(ind_atwork))
@@ -56,22 +58,26 @@ table(hh_nchild); table(hh_nchild)/length(hh_nchild) * 100; barplot(table(hh_nch
 hist(hh_income); plot(ecdf(hh_income))
 mean(hh_income); sd(hh_income);sd(hh_income)/sqrt(length(hh_income)); range(hh_income); boxplot(hh_income)
 
-# health_fys = kwantitatief continue
+# health_fys = kwantitatief continue (fout: ofwel kwantitatief discreet ofwel kwalitatief ordinaal)
 hist(health_fys); plot(ecdf(health_fys))
 mean(health_fys, na.rm = TRUE); sd(health_fys, na.rm = TRUE); sd(health_fys, na.rm = TRUE)/sqrt(length(health_fys)); range(health_fys, na.rm = TRUE); boxplot(health_fys, na.rm = TRUE)
+fysiek = cut(health_fys, c(0,10,20,30,40,50,60,70,80,90,Inf))
+table(fysiek); table(fysiek)/length(na.omit(health_fys))*100
 
 # health_emo = kwantitatief continue
 hist(health_emo); plot(ecdf(health_emo))
 mean(health_emo, na.rm = TRUE); sd(health_emo, na.rm = TRUE); sd(health_emo, na.rm = TRUE)/sqrt(length(health_emo)); range(health_emo, na.rm = TRUE); boxplot(health_emo, na.rm = TRUE)
+emotie = cut(health_emo, c(0,10,20,30,40,50,60,70,80,90,Inf))
+table(emotie); table(emotie)/length(na.omit(health_emo))*100
 
 # leis_time = kwantitatief continue
 hist(leis_time); plot(ecdf(leis_time))
 mean(leis_time, na.rm = TRUE); sd(leis_time, na.rm = TRUE); sd(leis_time, na.rm = TRUE)/sqrt(length(leis_time)); range(leis_time, na.rm = TRUE); boxplot(leis_time)
 
-# hh_parent = kwantitatief discreet
+# hh_parent = kwalitatief nominaal
 table(hh_parent); table(hh_parent)/length(hh_parent) * 100; barplot(table(hh_parent))
 
-# hh_alone = kwantitatief discreet
+# hh_alone = kwalitatief nominaal
 table(hh_alone); table(hh_alone)/length(hh_alone) * 100; barplot(table(hh_alone))
 
 
