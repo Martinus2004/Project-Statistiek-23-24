@@ -156,14 +156,15 @@ geluksscore_vrouw = ind_happy[ind_gender == "vrouw"]
 mean(geluksscore_man); mean(geluksscore_vrouw)
 
 # 0) geldt CLS
-length(geluksscore_man);length(geluksscore_vrouw) 
+length(na.omit(geluksscore_man));length(na.omit(geluksscore_vrouw)) 
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_man); shapiro.test(geluksscore_vrouw)
 boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore")
-
+qqnorm(geluksscore_man); qqline(geluksscore_man)
+qqnorm(geluksscore_vrouw); qqline(geluksscore_vrouw)
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
 
@@ -186,15 +187,16 @@ geluksscore_geen_betaald_werk = ind_happy[ind_atwork == "nee"]
 mean(geluksscore_betaald_werk, na.rm = TRUE); mean(geluksscore_geen_betaald_werk, na.rm = TRUE)
 
 # 0) geldt CLS
-length(geluksscore_betaald_werk)
-length(geluksscore_geen_betaald_werk) 
+length(na.omit(geluksscore_betaald_werk))
+length(na.omit(geluksscore_geen_betaald_werk))
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_betaald_werk); shapiro.test(geluksscore_geen_betaald_werk)
 boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore")
-
+qqnorm(geluksscore_betaald_werk); qqline(geluksscore_betaald_werk)
+qqnorm(geluksscore_geen_betaald_werk); qqline(geluksscore_geen_betaald_werk)
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
 
@@ -217,14 +219,15 @@ geluksscore_jongkind_en_alleenwonend = ind_happy[hh_parent == "ja" & hh_pos == "
 mean(geluksscore_jongkind_en_samenwonend, na.rm = TRUE); mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE)
 
 # 0) geldt CLS
-length(geluksscore_jongkind_en_samenwonend); length(geluksscore_jongkind_en_alleenwonend)
+length(na.omit(geluksscore_jongkind_en_samenwonend)); length(na.omit(geluksscore_jongkind_en_alleenwonend))
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_jongkind_en_samenwonend); shapiro.test(geluksscore_jongkind_en_alleenwonend)
 boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenwonend"), ylab = "geluksscore")
-
+qqnorm(geluksscore_jongkind_en_samenwonend); qqline(geluksscore_jongkind_en_samenwonend)
+qqnorm(geluksscore_jongkind_en_alleenwonend);qqline(geluksscore_jongkind_en_alleenwonend)
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
 
