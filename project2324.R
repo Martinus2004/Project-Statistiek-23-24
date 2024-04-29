@@ -22,28 +22,28 @@ attach(people)
 
 # 3.2 Beschrijvende statistiek:
 
-# ind_gender = kwalitatief nominaal
+# ind_gender = kwalitatief nominaal 
 table(ind_gender); table(ind_gender)/length(ind_gender) * 100; barplot(table(ind_gender))
 
-# ind_age = kwantitatief continue
+# ind_age = kwantitatief continue (redelijk normaal verdeeld)
 table(cut(ind_age, breaks = 20)); hist(ind_age); plot(ecdf(ind_age))
 mean(ind_age); sd(ind_age); sd(ind_age)/sqrt(length(ind_age)); range(ind_age); boxplot(ind_age)
 
 # ind_edu = kwalitatief ordinaal
 table(ind_edu); table(ind_edu)/length(ind_edu) * 100; barplot(table(ind_edu))
 
-# ind_happy = kwantitatief continue
+# ind_happy = kwantitatief continue (linksscheve verdeling)(Noah denk eerder kwalitatief ordinaal)
 table(ind_happy); hist(ind_happy); plot(ecdf(ind_happy))
 mean(ind_happy); sd(ind_happy);sd(ind_happy)/sqrt(length(ind_happy)); range(ind_happy); boxplot(ind_happy)
-happiness = cut(ind_happy, breaks = c(0,10,20,30,40,50,60,70,80,90,Inf)) #opdelen van scores in intervallen van elk 10 breed
-table(happiness); table(happiness)/length(na.omit(ind_happy))*100
 
 # ind_atwork = kwalitatief nominaal
 table(ind_atwork); table(ind_atwork)/length(ind_atwork) * 100; barplot(table(ind_atwork))
 
-# ind_income = kwantitatief continue
+# ind_income = kwantitatief continue (rechtsscheef verdeeld)
 hist(ind_income); plot(ecdf(ind_income))
 mean(ind_income); sd(ind_income);sd(ind_income)/sqrt(length(ind_income)); range(ind_income); boxplot(ind_income)
+hist(log(ind_income))
+#bij een log transformatie normaler verdeeld
 
 # hh_pos = kwalitatief nominaal
 table(hh_pos); table(hh_pos)/length(hh_pos) * 100; barplot(table(hh_pos))
@@ -54,50 +54,112 @@ table(hh_nadult); table(hh_nadult)/length(hh_nadult) * 100; barplot(table(hh_nad
 # hh_nchild = kwantitatief discreet
 table(hh_nchild); table(hh_nchild)/length(hh_nchild) * 100; barplot(table(hh_nchild))
 
-# hh_income = kwantitatief continue
+# hh_income = kwantitatief continue (logaritmisch verdeeld)
 hist(hh_income); plot(ecdf(hh_income))
 mean(hh_income); sd(hh_income);sd(hh_income)/sqrt(length(hh_income)); range(hh_income); boxplot(hh_income)
+hist(log(hh_income))
+#log transformatie zorgt dat het normaler verdeeld is
 
-# health_fys = kwantitatief continue (fout: ofwel kwantitatief discreet ofwel kwalitatief ordinaal)
+# health_fys = kwantitatief continue (linksscheef verdeeld) (is een kwalitatief ordinaal want het is met een schaal)
 hist(health_fys); plot(ecdf(health_fys))
 mean(health_fys, na.rm = TRUE); sd(health_fys, na.rm = TRUE); sd(health_fys, na.rm = TRUE)/sqrt(length(health_fys)); range(health_fys, na.rm = TRUE); boxplot(health_fys, na.rm = TRUE)
-fysiek = cut(health_fys, c(0,10,20,30,40,50,60,70,80,90,Inf))
-table(fysiek); table(fysiek)/length(na.omit(health_fys))*100
 
-# health_emo = kwantitatief continue
+# health_emo = kwantitatief continue (linksscheef verdeeld) (is een kwalitatief ordinaal want het is met een schaal)
 hist(health_emo); plot(ecdf(health_emo))
 mean(health_emo, na.rm = TRUE); sd(health_emo, na.rm = TRUE); sd(health_emo, na.rm = TRUE)/sqrt(length(health_emo)); range(health_emo, na.rm = TRUE); boxplot(health_emo, na.rm = TRUE)
-emotie = cut(health_emo, c(0,10,20,30,40,50,60,70,80,90,Inf))
-table(emotie); table(emotie)/length(na.omit(health_emo))*100
 
-# leis_time = kwantitatief continue
+# leis_time = kwantitatief continue (logaritmisch verdeeld)
 hist(leis_time); plot(ecdf(leis_time))
 mean(leis_time, na.rm = TRUE); sd(leis_time, na.rm = TRUE); sd(leis_time, na.rm = TRUE)/sqrt(length(leis_time)); range(leis_time, na.rm = TRUE); boxplot(leis_time)
+hist(log(leis_time))
+#door een log transformatie normaler verdeeld
 
-# hh_parent = kwalitatief nominaal
+# hh_parent = kwantitatief discreet
 table(hh_parent); table(hh_parent)/length(hh_parent) * 100; barplot(table(hh_parent))
 
-# hh_alone = kwalitatief nominaal
+# hh_alone = kwantitatief discreet
 table(hh_alone); table(hh_alone)/length(hh_alone) * 100; barplot(table(hh_alone))
+
+#extra deeltje hoe respondeert geluk (ind_happy) met andere kenmerken
+plot(ind_gender,ind_happy)
+mean(ind_happy[ind_gender=="man"])
+mean(ind_happy[ind_gender=="vrouw"])
+
+plot(ind_age,ind_happy)
+happy=cut(ind_happy, c(0,10,20,30,40,50,60,70,80,90,Inf))
+age=cut(ind_age,c(30,40,50,60,70,Inf))
+table(age,happy);plot(age,happy)
+
+plot(ind_edu,ind_happy) 
+mean(ind_happy[ind_edu=="minder dan SO"],na.rm = TRUE)
+mean(ind_happy[ind_edu=="diploma SO"],na.rm = TRUE)
+mean(ind_happy[ind_edu=="hoger diploma"],na.rm = TRUE)
+
+plot(ind_atwork,ind_happy)
+mean(ind_happy[ind_atwork=="ja"],na.rm = TRUE)
+mean(ind_happy[ind_atwork=="nee"],na.rm = TRUE)
+
+plot(ind_income,ind_happy)
+
+plot(hh_pos,ind_happy)
+mean(ind_happy[hh_pos=="geen inwonende partner"],na.rm = TRUE)
+mean(ind_happy[hh_pos=="samenwonend met partner"],na.rm = TRUE)
+mean(ind_happy[hh_pos=="woont bij ouders"],na.rm = TRUE)
+
+plot(hh_nadult,ind_happy)
+mean(ind_happy[hh_nadult=="0"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="1"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="2"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="3"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="4"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="5"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="6"],na.rm = TRUE)
+mean(ind_happy[hh_nadult=="7"],na.rm = TRUE)
+
+plot(hh_nchild,ind_happy)
+mean(ind_happy[hh_nchild=="O"],na.rm = TRUE)
+mean(ind_happy[hh_nchild=="1"],na.rm = TRUE)
+mean(ind_happy[hh_nchild=="2"],na.rm = TRUE)
+mean(ind_happy[hh_nchild=="3"],na.rm = TRUE)
+mean(ind_happy[hh_nchild=="4"],na.rm = TRUE)
+mean(ind_happy[hh_nchild=="5"],na.rm = TRUE)
+
+plot(hh_income,ind_happy)
+
+plot(health_fys,ind_happy)
+
+plot(health_emo,ind_happy)
+
+plot(leis_time,ind_happy)
+
+plot(hh_parent,ind_happy)
+mean(ind_happy[hh_parent=="ja"])
+mean(ind_happy[hh_parent=="nee"],na.rm = TRUE)
+
+plot(hh_alone,ind_happy)
+mean(ind_happy[hh_alone=="ja"])
+mean(ind_happy[hh_alone=="nee"])
 
 
 # 3.3 Inferentie:
 
 # 3.3.1: kenmerken van de steekproef
 
+
+
 # - proportie vrouwen en mannen in 2016 van onderzoek == proportie volgens StatBel?
 # StatBel: 4 368 849 mannen en 4 613 480  vrouwen = totaal 8 982 329 volwassenen
+
+# X = geslacht respondent, succes = "vrouw" 
 
 #p0 = 4 368 849 / 8 982 329 = proportie vrouwen populatie
 
 table(ind_gender); table(ind_gender)/length(ind_gender)
 data.frame("man SB" = 4368849/8982329, "vrouw SB" = 4613480/8982329)
 
-binom.test(length(ind_gender[ind_gender == "man"]), length(ind_gender), p = 4368849/8982329, alternative = "two.sided")
-2*(1 - pbinom(length(ind_gender[ind_gender == "man"]) - 1 , length(ind_gender), 4368849/8982329))
-
-binom.test(length(ind_gender[ind_gender == "vrouw"]), length(ind_gender), p = 4613480/8982329, alternative = "two.sided")
-2*(1 - pbinom(length(ind_gender[ind_gender == "vrouw"]) - 1 , length(ind_gender), 4613480/8982329))
+binom.test(914, length(ind_gender), p = 4613480/8982329, alternative = "two.sided")
+# p-waarde >> 0.05 en p0 in betrouwbaarheidsinterval, dus H1 verwerpen en H0 aanvaarden
+# besluit: de geobserveerde proportie vrouwen (en ook mannen) verschilt niet significant van de proportie die Statbel geeft
 
 
 # - verdeling leeftijd in 2016 van onderzoek == verdeling volgens StatBel?
@@ -121,7 +183,6 @@ leeftijd_verdeling_test$residuals
 
 # de 0-30 jaar groep is zeer sterk ondervertegenwoordigd maw véél te weinig van die leeftijdscategorie bevraagd
 # de andere leeftijdscategorieen buiten 30-40 jaar is beetje oververtegenwoordigd maw beetje teveel mensen bevraagd van die groep
-
 
 
 # - gemiddeld individuele netto belastbaar inkomen per inwoner in 2016 == gemiddelde volgens StatBel?
@@ -156,15 +217,14 @@ geluksscore_vrouw = ind_happy[ind_gender == "vrouw"]
 mean(geluksscore_man); mean(geluksscore_vrouw)
 
 # 0) geldt CLS
-length(na.omit(geluksscore_man));length(na.omit(geluksscore_vrouw)) 
+length(geluksscore_man);length(geluksscore_vrouw) 
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_man); shapiro.test(geluksscore_vrouw)
 boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore")
-qqnorm(geluksscore_man); qqline(geluksscore_man)
-qqnorm(geluksscore_vrouw); qqline(geluksscore_vrouw)
+
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
 
@@ -187,16 +247,15 @@ geluksscore_geen_betaald_werk = ind_happy[ind_atwork == "nee"]
 mean(geluksscore_betaald_werk, na.rm = TRUE); mean(geluksscore_geen_betaald_werk, na.rm = TRUE)
 
 # 0) geldt CLS
-length(na.omit(geluksscore_betaald_werk))
-length(na.omit(geluksscore_geen_betaald_werk))
+length(geluksscore_betaald_werk)
+length(geluksscore_geen_betaald_werk) 
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_betaald_werk); shapiro.test(geluksscore_geen_betaald_werk)
 boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore")
-qqnorm(geluksscore_betaald_werk); qqline(geluksscore_betaald_werk)
-qqnorm(geluksscore_geen_betaald_werk); qqline(geluksscore_geen_betaald_werk)
+
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
 
@@ -219,15 +278,14 @@ geluksscore_jongkind_en_alleenwonend = ind_happy[hh_parent == "ja" & hh_pos == "
 mean(geluksscore_jongkind_en_samenwonend, na.rm = TRUE); mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE)
 
 # 0) geldt CLS
-length(na.omit(geluksscore_jongkind_en_samenwonend)); length(na.omit(geluksscore_jongkind_en_alleenwonend))
+length(geluksscore_jongkind_en_samenwonend); length(geluksscore_jongkind_en_alleenwonend)
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_jongkind_en_samenwonend); shapiro.test(geluksscore_jongkind_en_alleenwonend)
 boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenwonend"), ylab = "geluksscore")
-qqnorm(geluksscore_jongkind_en_samenwonend); qqline(geluksscore_jongkind_en_samenwonend)
-qqnorm(geluksscore_jongkind_en_alleenwonend);qqline(geluksscore_jongkind_en_alleenwonend)
+
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
 
@@ -258,8 +316,6 @@ cor.test(ind_happy, hh_income, method = "spearman"); plot(ind_happy, hh_income)
 cor.test(ind_happy, health_fys, method = "spearman"); plot(ind_happy, health_fys)
 cor.test(ind_happy, health_emo, method = "spearman"); plot(ind_happy, health_emo)
 cor.test(ind_happy, leis_time, method = "spearman"); plot(ind_happy, leis_time)
-
-
 
 
 

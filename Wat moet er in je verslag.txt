@@ -1,3 +1,6 @@
+TESTEN VOOR GEMIDDELDEN
+
+
 Wat moet er wel in? 
 - H0 en H1
 - geobserveerde testwaarde: bv t-waarde die R geeft of gemiddelde van een groep bij ongepaard of F-waarde... 
@@ -11,4 +14,45 @@ Wat moet er wel in?
 Wat niet? 
 - betrouwbaarheidsinterval
 
-TEST TEST TEST
+TESTEN VOOR AFHANKELIJKHEID
+
+KWANTITATIEF CONTINUE:
+- histogrammen: plot(X, Y)
+- p-waarde, test-statistiek ("cor" waarde), df (vrijheidsgraden)
+- besluit: 
+-> p-waarde: er is (g)een signficant effect, dus != 0 
+-> grootte "cor" waarde: er is een groot / klein effect
+-> teken "cor" waarde: er is een positief of negatief effect: vb grote X komt overeen met grote Y
+
+KWALITATIEF
+- plot: plot(X, Y)
+- abs freq tabel, $expected tabel, $residuals tabel
+
+   |  Y1   |  Y2
+-------------------
+   | abs   | abs
+X1 | expct | expct
+   | resid | resid
+-------------------   
+   | abs   | abs
+X2 | expct | excpt
+   | resid | resid
+-------------------
+- p-waarde, test-statistiek (X² waarde), df (vrijheidsgraden)
+- besluit: 
+-> p-waarde: er is (g)een signficant effect, dus != 0 
+-> grootte "cor" waarde: er is een groot / klein effect
+-> teken "cor" waarde: er is een positief of negatief effect: vb grote X komt overeen met grote Y
+
+TEST VOOR één PROPORTIE
+- # successen en # trials 
+- p-waarde
+- 
+
+
+
+
+
+
+
+
