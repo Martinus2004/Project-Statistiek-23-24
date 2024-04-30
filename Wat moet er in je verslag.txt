@@ -47,7 +47,27 @@ X2 | expct | excpt
 TEST VOOR één PROPORTIE
 - # successen en # trials 
 - p-waarde
-- 
+
+REGRESSIE:
+- proces:
+"nu doen we deze veranderlijke weg want p-waarde = ... en dus groter dan 0.05" 
+- op het einde, na proces:
+"nu zijn alle p-waarde klein genoeg"
+formule: Y = coeff * X1 + coeff * X2 ...
+std error van de coeff
+adj R²
+F-statistiek en zijn p-waarde
+
+vertel de betekenis van je formule in eigen woorden:
+"als ... met één eenheid toeneemt / afneemt, dan zal ... stijgen of dalen met ..."
+
+
+
+
+
+
+
+
 
 
 
