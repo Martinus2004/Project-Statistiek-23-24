@@ -223,7 +223,7 @@ length(geluksscore_man);length(geluksscore_vrouw)
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_man); shapiro.test(geluksscore_vrouw)
-boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore")
+boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore"); abline(a=mean(geluksscore_man), b=0, col="red"); abline(a=mean(geluksscore_vrouw), b=0, col="blue")
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
@@ -233,6 +233,7 @@ boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore")
 t.test(geluksscore_man, geluksscore_vrouw, paired = FALSE, var.equal = FALSE, alternative = "two.sided")
 
 # p-waarde: 0.3778 >> 0.05 dus we verwerpen H1, de afwijking is toeval
+# de boxplots hebben een blauwe en rode rechte, die de verschillende gemiddelden voorstellen, deze liggen bijna op elkaar (klein verschil)
 # Besluit: obv de steekproef vinden we geen significante afwijking tussen de gelukscores van mannen en vrouwen
 
 
@@ -254,7 +255,7 @@ length(geluksscore_geen_betaald_werk)
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_betaald_werk); shapiro.test(geluksscore_geen_betaald_werk)
-boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore")
+boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore"); abline(a=mean(geluksscore_betaald_werk,na.rm = TRUE), b=0, col="red"); abline(a=mean(geluksscore_geen_betaald_werk, na.rm = TRUE), b=0, col="blue") 
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
@@ -264,6 +265,7 @@ boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore")
 t.test(geluksscore_betaald_werk, geluksscore_geen_betaald_werk, paired = FALSE, var.equal = FALSE, alternative = "two.sided")
 
 # p-waarde: 1.658 * 10^-7 <<< 0.05 dus we verwerpen H0, de afwijking is geen toeval maar significant
+# rode rechte vs. blauwe rechte, groter verschil dan vorige test
 # Besluit: obv de steekproef vinden we een significant verschil tussen de geluksscores van mensen met of zonder betaald werk
 
 
@@ -284,7 +286,7 @@ length(geluksscore_jongkind_en_samenwonend); length(geluksscore_jongkind_en_alle
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_jongkind_en_samenwonend); shapiro.test(geluksscore_jongkind_en_alleenwonend)
-boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenwonend"), ylab = "geluksscore")
+boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenwonend"), ylab = "geluksscore"); abline(a=mean(geluksscore_jongkind_en_samenwonend, na.rm =TRUE), b=0, col= "red"); abline(a= mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE), b=0, col = "blue")
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
