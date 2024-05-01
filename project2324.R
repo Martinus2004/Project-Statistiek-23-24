@@ -349,3 +349,135 @@ lines(sort(x_i2), predictie2[order(x_i2), 2], col='green')
 lines(sort(x_i2), predictie2[order(x_i2), 3], col='green')
 #Multiple R-squared:  0.04422,	Adjusted R-squared:  0.04367, F-statistic: 80.04 on 1 and 1730 DF,  p-value: < 2.2e-16, t-waarde=8.947
 #kleine p-waarde en R-squared dus weinig verklaring van het geluk
+
+
+
+
+
+# meervoudige regressie
+
+geluksscore_meerv_model = lm(ind_happy ~ ind_age + ind_income + hh_income + health_fys + health_emo + leis_time)
+
+geluksscore_continue = data.frame(ind_age, ind_income, hh_income, health_fys, health_emo, leis_time)
+
+plot(geluksscore_continue)
+cor(geluksscore_continue)
+
+summary(geluksscore_meerv_model)
+geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-ind_age); summary(geluksscore_meerv_model)
+geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-ind_income); summary(geluksscore_meerv_model)
+geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-leis_time); summary(geluksscore_meerv_model)
+geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-health_fys); summary(geluksscore_meerv_model)
+
+# modelveronderstellingen meervoudig model
+
+par(mfrow=c(2, 2))
+plot(geluksscore_meerv_model)
+par(mfrow=c(1, 1))
+
+# residuen lijken mooi verspreid rond de nullijn te liggen, de rode trendlijn sluit redelijk mooi aan bij die nullijn
+# de varianties van de residuen lijkt niet constant, ook de normaliteit lijkt af te wijken
+
+# ingezoomd residuplot
+geluksscore_residus = geluksscore_meerv_model$residuals
+y_values = geluksscore_meerv_model$fitted.values
+
+plot(y_values, geluksscore_residus)
+abline(h= 0, col = "red")
+
+# normaliteit residus nagaan
+
+qqnorm(geluksscore_residus); qqline(geluksscore_residus, col = "red")
+shapiro.test(geluksscore_residus)
+
+# er zijn lange staarten die afwijken van de qqline, ook naar rechts toe systematisch erboven
+# shapiro wilk doet ons H0 verwerpen, dus wijkt volgens de test sterk af van normaliteit ondanks zwakkere test is, 
+
+par(mfrow=c(1,3))
+boxplot(ind_happy); boxplot(hh_income); boxplot(health_emo)
+par(mfrow=c(1,1))
+# op boxplots zien we nogmaals dat ze alle drie scheef verdeeld zijn, aangezien hh_income rechtscheef lijkt log daar enkel te gaan helpen
+# de andere zijn linksscheef, dus zal waarschijnlijk niet helpen
+
+geluksscore_residus = geluksscore_meerv_model$residuals
+x_hh_income = geluksscore_meerv_model$model$hh_income
+
+plot(x_hh_income, geluksscore_residus)
+abline(h= 0, col = "red")
+
+geluksscore_loghhinkomen_model = update(geluksscore_meerv_model, .~.-hh_income + log10(hh_income))
+
+summary(geluksscore_loghhinkomen_model)
+
+# modelveronderstellingen nieuw model
+
+par(mfrow=c(2, 2))
+plot(geluksscore_loghhinkomen_model)
+par(mfrow=c(1, 1))
+
+# ingezoomd residuplot
+geluksscore_loghhinkomen_residus = geluksscore_loghhinkomen_model$residuals
+y_values = geluksscore_loghhinkomen_model$fitted.values
+
+plot(y_values, geluksscore_loghhinkomen_residus)
+abline(h= 0, col = "red")
+
+# normaliteit residus nagaan
+
+qqnorm(geluksscore_loghhinkomen_residus); qqline(geluksscore_loghhinkomen_residus, col = "red")
+shapiro.test(geluksscore_loghhinkomen_residus)
+
+
+par(mfrow=c(2, 3))
+
+plot(geluksscore_meerv_model, which = 1, main = "geluksscore ~ hh_income")
+plot(geluksscore_meerv_model, which = 2, main = "geluksscore ~ hh_income")
+plot(geluksscore_meerv_model, which = 3, main = "geluksscore ~ hh_income")
+
+plot(geluksscore_loghhinkomen_model, which = 1, main = "geluksscore ~ log10 hh_income")
+plot(geluksscore_loghhinkomen_model, which = 2, main = "geluksscore ~ log10 hh_income")
+plot(geluksscore_loghhinkomen_model, which = 3, main = "geluksscore ~ log10 hh_income")
+
+par(mfrow=c(1, 1))
+
+
+
+# afzonderlijke vergelijking naargelang geslacht? 
+
+geluksscore_geslacht_groepen = update(geluksscore_meerv_model, .~.*ind_gender)
+summary(geluksscore_geslacht_groepen)
+
+geluksscore_geslacht_groepen = update(geluksscore_geslacht_groepen, .~.-hh_income:ind_gender)
+summary(geluksscore_geslacht_groepen)
+
+geluksscore_geslacht_groepen = update(geluksscore_geslacht_groepen, .~.-health_emo:ind_gender)
+summary(geluksscore_geslacht_groepen)
+
+
+
+par(mfrow = c(1,2))
+
+plot(ind_happy ~ health_emo)
+
+abline(lm(ind_happy[ind_gender == "man"] ~ health_emo[ind_gender == "man"]), col = 'blue')
+abline(lm(ind_happy[ind_gender == "vrouw"] ~ health_emo[ind_gender == "vrouw"]), col = 'pink')
+
+points(health_emo[ind_gender == "man"], ind_happy[ind_gender == "man"], col = "blue")
+points(health_emo[ind_gender == "vrouw"], ind_happy[ind_gender == "vrouw"], col = "pink")
+
+plot(ind_happy ~ log10(hh_income))
+
+abline(lm(ind_happy[ind_gender == "man"] ~ log10(hh_income)[ind_gender == "man"]), col = 'blue')
+abline(lm(ind_happy[ind_gender == "vrouw"] ~ log10(hh_income)[ind_gender == "vrouw"]), col = 'pink')
+
+
+points(log10(hh_income)[ind_gender == "man"], ind_happy[ind_gender == "man"], col = "blue")
+points(log10(hh_income)[ind_gender == "vrouw"], ind_happy[ind_gender == "vrouw"], col = "pink")
+
+par(mfrow = c(1,1))
+
+
+
+
+
+
