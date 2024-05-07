@@ -150,30 +150,30 @@ mean(ind_happy[hh_alone=="nee"])
 # - proportie vrouwen en mannen in 2016 van onderzoek == proportie volgens StatBel?
 # StatBel: 4 368 849 mannen en 4 613 480  vrouwen = totaal 8 982 329 volwassenen
 
-# X = geslacht respondent, succes = "vrouw" 
+# X = geslacht respondent, succes = "vrouw" of succes = "man"
 
-#p0 = 4 368 849 / 8 982 329 = proportie vrouwen populatie
+#p0 = 4 613 480 / 8 982 329 = proportie vrouwen populatie of 4 368 849 / 8 982 329 = proportie mannen populatie
 
 table(ind_gender); table(ind_gender)/length(ind_gender)
 data.frame("man SB" = 4368849/8982329, "vrouw SB" = 4613480/8982329)
 
 binom.test(914, length(ind_gender), p = 4613480/8982329, alternative = "two.sided")
+
+binom.test(818, length(ind_gender), p = 4368849/8982329, alternative = "two.sided")
+
 # p-waarde >> 0.05 en p0 in betrouwbaarheidsinterval, dus H1 verwerpen en H0 aanvaarden
 # besluit: de geobserveerde proportie vrouwen (en ook mannen) verschilt niet significant van de proportie die Statbel geeft
 
 
 # - verdeling leeftijd in 2016 van onderzoek == verdeling volgens StatBel?
 
-age_ranges = cut(ind_age, breaks = c(0, 30, 40, 50, 60, 70, Inf), right = FALSE)
-table(age_ranges)
-age_ranges_abs_freq = c(141, 289, 331, 335, 303, 333)
-
-
-expected_age_ranges_rel_freq = c(0.19, 0.16, 0.17, 0.18, 0.14, 0.16) 
+leeftijdscategorieën = cut(ind_age, breaks = c(0, 30, 40, 50, 60, 70, Inf), right = FALSE)
+table(leeftijdscategorieën)
+verwachte_frequenties = c(0.19, 0.16, 0.17, 0.18, 0.14, 0.16) 
 
 # alle verwachte frequenties > 5 dus oké
 
-leeftijd_verdeling_test = chisq.test(age_ranges_abs_freq, p = expected_age_ranges_rel_freq)
+leeftijd_verdeling_test = chisq.test(table(leeftijdscategorieën), p = verwachte_frequenties); leeftijd_verdeling_test
 
 leeftijd_verdeling_test$observed
 leeftijd_verdeling_test$expected
@@ -217,15 +217,15 @@ geluksscore_vrouw = ind_happy[ind_gender == "vrouw"]
 mean(geluksscore_man); mean(geluksscore_vrouw)
 
 # 0) geldt CLS
-length(geluksscore_man);length(geluksscore_vrouw) 
+length(na.omit(geluksscore_man));length(na.omit(geluksscore_vrouw)) 
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_man); shapiro.test(geluksscore_vrouw)
 boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore"); abline(a=mean(geluksscore_man), b=0, col="red"); abline(a=mean(geluksscore_vrouw), b=0, col="blue")
-
-# beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
+qqnorm(geluksscore_man); qqline(geluksscore_man); qqnorm(geluksscore_vrouw); qqline(geluksscore_vrouw)
+# beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook linksscheve verdeling
 # op histogrammen en boxplots
 
 # 2) t-test ongepaard met ongelijke varianties
@@ -248,14 +248,15 @@ geluksscore_geen_betaald_werk = ind_happy[ind_atwork == "nee"]
 mean(geluksscore_betaald_werk, na.rm = TRUE); mean(geluksscore_geen_betaald_werk, na.rm = TRUE)
 
 # 0) geldt CLS
-length(geluksscore_betaald_werk)
-length(geluksscore_geen_betaald_werk) 
+length(na.omit(geluksscore_betaald_werk))
+length(na.omit(geluksscore_geen_betaald_werk))
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_betaald_werk); shapiro.test(geluksscore_geen_betaald_werk)
 boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore"); abline(a=mean(geluksscore_betaald_werk,na.rm = TRUE), b=0, col="red"); abline(a=mean(geluksscore_geen_betaald_werk, na.rm = TRUE), b=0, col="blue") 
+qqnorm(geluksscore_betaald_werk); qqline(geluksscore_betaald_werk); qqnorm(geluksscore_geen_betaald_werk); qqline(geluksscore_geen_betaald_werk)
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
@@ -280,13 +281,14 @@ geluksscore_jongkind_en_alleenwonend = ind_happy[hh_parent == "ja" & hh_pos == "
 mean(geluksscore_jongkind_en_samenwonend, na.rm = TRUE); mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE)
 
 # 0) geldt CLS
-length(geluksscore_jongkind_en_samenwonend); length(geluksscore_jongkind_en_alleenwonend)
+length(na.omit(geluksscore_jongkind_en_samenwonend)); length(na.omit(geluksscore_jongkind_en_alleenwonend))
 # Ja want beide n >>> 30
 
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_jongkind_en_samenwonend); shapiro.test(geluksscore_jongkind_en_alleenwonend)
 boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenwonend"), ylab = "geluksscore"); abline(a=mean(geluksscore_jongkind_en_samenwonend, na.rm =TRUE), b=0, col= "red"); abline(a= mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE), b=0, col = "blue")
+qqnorm(geluksscore_jongkind_en_samenwonend); qqline(geluksscore_jongkind_en_samenwonend); qqnorm(geluksscore_jongkind_en_alleenwonend); qqline(geluksscore_jongkind_en_alleenwonend)
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
 # op histogrammen en boxplots
@@ -310,7 +312,7 @@ t.test(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend
 
 shapiro.test(ind_happy) # => wijkt té sterk af van normale verdeling dus steeds spearman test obv rangen
 
-cor.test(ind_happy, ind_age, method = "spearman"); plot(ind_happy, ind_age)
+cor.test(ind_happy, ind_age, method = "spearman", exact = FALSE); plot(ind_happy, ind_age)
 cor.test(ind_happy, ind_income, method = "spearman"); plot(ind_happy, ind_income)
 cor.test(ind_happy, hh_nchild, method = "spearman"); plot(ind_happy, hh_nchild)
 cor.test(ind_happy, hh_nadult, method = "spearman"); plot(ind_happy, hh_nadult)
