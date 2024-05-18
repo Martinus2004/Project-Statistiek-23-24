@@ -145,8 +145,6 @@ mean(ind_happy[hh_alone=="nee"])
 
 # 3.3.1: kenmerken van de steekproef
 
-
-
 # - proportie vrouwen en mannen in 2016 van onderzoek == proportie volgens StatBel?
 # StatBel: 4 368 849 mannen en 4 613 480  vrouwen = totaal 8 982 329 volwassenen
 
@@ -167,7 +165,7 @@ binom.test(818, length(ind_gender), p = 4368849/8982329, alternative = "two.side
 
 # - verdeling leeftijd in 2016 van onderzoek == verdeling volgens StatBel?
 
-leeftijdscategorieën = cut(ind_age, breaks = c(0, 30, 40, 50, 60, 70, Inf), right = FALSE)
+leeftijdscategorieën = cut(ind_age, breaks = c(min(ind_age), 30, 40, 50, 60, 70, max(ind_age) + 1), right = FALSE)
 table(leeftijdscategorieën)
 verwachte_frequenties = c(0.19, 0.16, 0.17, 0.18, 0.14, 0.16) 
 
@@ -181,7 +179,7 @@ leeftijd_verdeling_test$residuals
 
 # p-waarde is praktisch 0, dus de verdeling vd steekproef wijkt sterk significant af van verdeling bij de belgen
 
-# de 0-30 jaar groep is zeer sterk ondervertegenwoordigd maw véél te weinig van die leeftijdscategorie bevraagd
+# de 18-30 jaar groep is zeer sterk ondervertegenwoordigd maw véél te weinig van die leeftijdscategorie bevraagd
 # de andere leeftijdscategorieen buiten 30-40 jaar is beetje oververtegenwoordigd maw beetje teveel mensen bevraagd van die groep
 
 
@@ -223,7 +221,11 @@ length(na.omit(geluksscore_man));length(na.omit(geluksscore_vrouw))
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_man); shapiro.test(geluksscore_vrouw)
-boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore"); abline(a=mean(geluksscore_man), b=0, col="red"); abline(a=mean(geluksscore_vrouw), b=0, col="blue")
+boxplot(ind_happy ~ ind_gender, xlab = "geslacht", ylab = "geluksscore"); abline(a=mean(geluksscore_man), b=0, col="blue", lwd = 2); abline(a=mean(geluksscore_vrouw), b=0, col="pink", lwd = 2)
+legend("bottom", inset=c(0, -0.225), legend=c("gemiddelde geluksscore mannen", "gemiddelde geluksscore vrouwen"),
+       col=c("blue", "pink"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", ncol=2, xpd=TRUE,
+       text.width=strwidth("gemiddelde geluksscore mannen   ") * 0.8)
+
 qqnorm(geluksscore_man); qqline(geluksscore_man); qqnorm(geluksscore_vrouw); qqline(geluksscore_vrouw)
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook linksscheve verdeling
 # op histogrammen en boxplots
@@ -255,7 +257,11 @@ length(na.omit(geluksscore_geen_betaald_werk))
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_betaald_werk); shapiro.test(geluksscore_geen_betaald_werk)
-boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore"); abline(a=mean(geluksscore_betaald_werk,na.rm = TRUE), b=0, col="red"); abline(a=mean(geluksscore_geen_betaald_werk, na.rm = TRUE), b=0, col="blue") 
+boxplot(ind_happy ~ ind_atwork, xlab = "betaald werk", ylab = "geluksscore"); abline(a=mean(geluksscore_betaald_werk,na.rm = TRUE), b=0, col="red", lwd = 2); abline(a=mean(geluksscore_geen_betaald_werk, na.rm = TRUE), b=0, col="blue", lwd = 2) 
+legend("bottom", inset=c(0, -0.225), legend=c("gemiddelde geluksscore betaald werk", "gemiddelde geluksscore geen betaald werk"),
+       col=c("red", "blue"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", ncol=2, xpd=TRUE,
+       text.width=strwidth("gemiddelde geluksscore geen betaald werk") * 0.9)
+
 qqnorm(geluksscore_betaald_werk); qqline(geluksscore_betaald_werk); qqnorm(geluksscore_geen_betaald_werk); qqline(geluksscore_geen_betaald_werk)
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
@@ -268,7 +274,6 @@ t.test(geluksscore_betaald_werk, geluksscore_geen_betaald_werk, paired = FALSE, 
 # p-waarde: 1.658 * 10^-7 <<< 0.05 dus we verwerpen H0, de afwijking is geen toeval maar significant
 # rode rechte vs. blauwe rechte, groter verschil dan vorige test
 # Besluit: obv de steekproef vinden we een significant verschil tussen de geluksscores van mensen met of zonder betaald werk
-
 
 # Is er een verschil tussen ouders met kinderen jonger dan 18 jaar naargelang ze een inwonende
 # partner hebben?
@@ -287,7 +292,14 @@ length(na.omit(geluksscore_jongkind_en_samenwonend)); length(na.omit(geluksscore
 # 1) Normaliteit?
 
 shapiro.test(geluksscore_jongkind_en_samenwonend); shapiro.test(geluksscore_jongkind_en_alleenwonend)
-boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenwonend"), ylab = "geluksscore"); abline(a=mean(geluksscore_jongkind_en_samenwonend, na.rm =TRUE), b=0, col= "red"); abline(a= mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE), b=0, col = "blue")
+
+boxplot(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend, names = c("samenwonend", "alleenstaand"), ylab = "geluksscore")
+
+abline(a=mean(geluksscore_jongkind_en_samenwonend, na.rm =TRUE), b=0, col= "red", lwd = 2); abline(a= mean(geluksscore_jongkind_en_alleenwonend, na.rm = TRUE), b=0, col = "blue", lwd = 2)
+
+legend("bottomleft", inset=c(0.1, -0.3), legend=c("gemiddelde geluksscore samenwonende ouders", "gemiddelde geluksscore alleenstaande ouders"),
+       col=c("red", "blue"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE,
+       text.width=strwidth("gemiddelde geluksscore alleenstaande ouders") * 0.8)
 qqnorm(geluksscore_jongkind_en_samenwonend); qqline(geluksscore_jongkind_en_samenwonend); qqnorm(geluksscore_jongkind_en_alleenwonend); qqline(geluksscore_jongkind_en_alleenwonend)
 
 # beide p-waarden bijna 0, dus wijken té sterk af van normaal verdeeld voor de F-test, we zien ook rechtsscheve verdeling
@@ -311,8 +323,7 @@ t.test(geluksscore_jongkind_en_samenwonend, geluksscore_jongkind_en_alleenwonend
 # 1) Normaliteit testen
 
 shapiro.test(ind_happy) # => wijkt té sterk af van normale verdeling dus steeds spearman test obv rangen
-
-cor.test(ind_happy, ind_age, method = "spearman", exact = FALSE); plot(ind_happy, ind_age)
+cor.test(ind_happy, ind_age, method = "spearman"); plot(ind_happy, ind_age)
 cor.test(ind_happy, ind_income, method = "spearman"); plot(ind_happy, ind_income)
 cor.test(ind_happy, hh_nchild, method = "spearman"); plot(ind_happy, hh_nchild)
 cor.test(ind_happy, hh_nadult, method = "spearman"); plot(ind_happy, hh_nadult)
@@ -320,6 +331,10 @@ cor.test(ind_happy, hh_income, method = "spearman"); plot(ind_happy, hh_income)
 cor.test(ind_happy, health_fys, method = "spearman"); plot(ind_happy, health_fys)
 cor.test(ind_happy, health_emo, method = "spearman"); plot(ind_happy, health_emo)
 cor.test(ind_happy, leis_time, method = "spearman"); plot(ind_happy, leis_time)
+
+#aantal gevallen waar er ties zijn per significante variabele
+sum(table(ind_income) > 1);sum(table(hh_nadult) > 1);sum(table(hh_income) > 1);sum(table(health_fys) > 1);sum(table(health_emo) > 1)
+
 
 
 #3.3.4 Verklaren van de gelukscore
