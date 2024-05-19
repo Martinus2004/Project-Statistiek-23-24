@@ -517,7 +517,7 @@ predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
         interval="confidence",level = 0.95)
 predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
         interval="prediction", level = 0.95)
-
+# waarde=64.9363, confidence interval [64,24277; 65,62982], predictie interval [41,97872; 87,89387]
 
 
 
