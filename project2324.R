@@ -511,6 +511,12 @@ points(log10(hh_income)[ind_gender == "vrouw"], ind_happy[ind_gender == "vrouw"]
 
 par(mfrow = c(1,1))
 
+## voorspellingen met het meervoudige model
+predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954), level = 0.95)
+predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
+        interval="confidence",level = 0.95)
+predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
+        interval="prediction", level = 0.95)
 
 
 
