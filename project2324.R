@@ -511,14 +511,22 @@ points(log10(hh_income)[ind_gender == "vrouw"], ind_happy[ind_gender == "vrouw"]
 
 par(mfrow = c(1,1))
 
-## voorspellingen met het meervoudige model
+#25503
+ind_happy[ind_ID == 25503] #=66
 predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954), level = 0.95)
 predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
         interval="confidence",level = 0.95)
 predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
         interval="prediction", level = 0.95)
 # waarde=64.9363, confidence interval [64,24277; 65,62982], predictie interval [41,97872; 87,89387]
-
+#27010
+ind_happy[ind_ID == 27010] #=82
+predict(geluksscore_loghhinkomen_model,data.frame(health_emo=13,hh_income=87), level = 0.95)
+predict(geluksscore_loghhinkomen_model,data.frame(health_emo=13,hh_income=87),
+        interval="confidence",level = 0.95)
+predict(geluksscore_loghhinkomen_model,data.frame(health_emo=13,hh_income=87),
+        interval="prediction", level = 0.95)
+# score=41.18274, confidence interval =[37,72663; 44.63885], predictie interval=  [17.97683; 64.38864]
 
 
 
