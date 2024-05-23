@@ -354,55 +354,6 @@ sum(table(ind_income) > 1);sum(table(hh_nadult) > 1);sum(table(hh_income) > 1);s
 
 
 #3.3.4 Verklaren van de gelukscore
-# Eenvoudig regressiemodel voor geluk in functie van het totale beschikbare inkomen van het gezin en het tweede in functie van het tiendelige logaritmevan dat inkomen.
-model1=lm(ind_happy~hh_income)
-summary(model1)
-plot(ind_happy~hh_income, xlab = "beschikbaar gezinsinkomen (euro / maand)", ylab = "geluksscore")
-abline(model1, col='red')
-x_i1 = model1$model[,2]
-y_i1 = model1$model[,1]
-betrouwbh1 = predict(model1, interval = "confidence", level = 0.95)
-predictie1 = predict(model1, interval = "prediction", level = 0.95)
-lines(sort(x_i1), betrouwbh1[order(x_i1), 2], col='blue')
-lines(sort(x_i1), betrouwbh1[order(x_i1), 3], col='blue')
-lines(sort(x_i1), predictie1[order(x_i1), 2], col='green')
-lines(sort(x_i1), predictie1[order(x_i1), 3], col='green')
-
-legend("topleft", inset=c(-0.1, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
-       col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
-
-legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
-       col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
-
-
-#Multiple R-squared:  0.02271,	Adjusted R-squared:  0.02215, F-statistic: 40.21 on 1 and 1730 DF,  p-value: 2.906e-10, t-waarde=6.341
-#kleine p-waarde en R-squared dus weinig verklaring van het geluk
-
-model2=lm(ind_happy~log10(hh_income))
-summary(model2)
-plot(ind_happy~log10(hh_income), xlab = bquote("beschikbaar gezinsinkomen (euro / maand) (" * log[10] * " schaal)"), ylab = "geluksscore")
-abline(model2, col='red')
-x_i2 = model2$model[,2]
-y_i2 = model2$model[,1]
-betrouwbh2 = predict(model2, interval = "confidence", level = 0.95)
-predictie2 = predict(model2, interval = "prediction", level = 0.95)
-lines(sort(x_i2), betrouwbh2[order(x_i2), 2], col='blue')
-lines(sort(x_i2), betrouwbh2[order(x_i2), 3], col='blue')
-lines(sort(x_i2), predictie2[order(x_i2), 2], col='green')
-lines(sort(x_i2), predictie2[order(x_i2), 3], col='green')
-
-legend("topleft", inset=c(-0.1, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
-       col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
-
-legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
-       col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
-
-
-#Multiple R-squared:  0.04422,	Adjusted R-squared:  0.04367, F-statistic: 80.04 on 1 and 1730 DF,  p-value: < 2.2e-16, t-waarde=8.947
-#kleine p-waarde en R-squared dus weinig verklaring van het geluk
-
-
-
 
 
 # meervoudige regressie
@@ -569,6 +520,16 @@ points(1954,66 , col ="orange",pch = 19)
 points(1954,64.9363 , col = "purple",pch = 19)
 points(87,41.18274 , col = "purple",pch = 19)
 points(87,82 , col ="orange",pch = 19)
+
+legend("topleft", inset=c(-0.1, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
+       col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
+
+legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
+       col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
+
+
+
+
 #Multiple R-squared:  0.02271,	Adjusted R-squared:  0.02215, F-statistic: 40.21 on 1 and 1730 DF,  p-value: 2.906e-10, t-waarde=6.341
 #kleine p-waarde en R-squared dus weinig verklaring van het geluk
 
@@ -588,6 +549,16 @@ points(log10(1954),66 , col ="orange",pch = 19)
 points(log10(1954),64.9363 , col = "purple",pch = 19)
 points(log10(87),41.18274 , col = "purple",pch = 19)
 points(log10(87),82 , col ="orange",pch = 19)
+
+legend("topleft", inset=c(-0.1, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
+       col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
+
+legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
+       col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
+
+
+
+
 #Multiple R-squared:  0.04422,	Adjusted R-squared:  0.04367, F-statistic: 80.04 on 1 and 1730 DF,  p-value: < 2.2e-16, t-waarde=8.947
 #kleine p-waarde en R-squared dus weinig verklaring van het geluk
 
