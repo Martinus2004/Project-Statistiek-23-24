@@ -444,6 +444,12 @@ par(mfrow=c(1, 1))
 
 
 # afzonderlijke vergelijking naargelang geslacht? 
+gender=ind_gender=="man"
+model4=lm(ind_happy~health_emo+log10(hh_income));summary(model4)
+model4 = update(model4, .~.*gender);summary(model4)
+model4 = update(model4, .~.-log10(hh_income):gender);summary(model4)
+model4 = update(model4, .~.-health_emo:gender);summary(model4)
+
 
 geluksscore_geslacht_groepen = update(geluksscore_meerv_model, .~.*ind_gender)
 summary(geluksscore_geslacht_groepen)
