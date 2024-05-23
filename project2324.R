@@ -503,6 +503,9 @@ predict(geluksscore_loghhinkomen_model,data.frame(health_emo=13,hh_income=87),
 # score=41.18274, confidence interval =[37,72663; 44.63885], predictie interval=  [17.97683; 64.38864]
 
 
+par(mfrow = c(1, 2))
+
+
 # Eenvoudig regressiemodel voor geluk in functie van het totale beschikbare inkomen van het gezin en het tweede in functie van het tiendelige logaritmevan dat inkomen.
 model1=lm(ind_happy~hh_income)
 summary(model1)
@@ -521,13 +524,9 @@ points(1954,64.9363 , col = "purple",pch = 19)
 points(87,41.18274 , col = "purple",pch = 19)
 points(87,82 , col ="orange",pch = 19)
 
-legend("topleft", inset=c(-0.1, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
+
+legend("topleft", inset=c(0.2, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
        col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
-
-legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
-       col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
-
-
 
 
 #Multiple R-squared:  0.02271,	Adjusted R-squared:  0.02215, F-statistic: 40.21 on 1 and 1730 DF,  p-value: 2.906e-10, t-waarde=6.341
@@ -550,14 +549,12 @@ points(log10(1954),64.9363 , col = "purple",pch = 19)
 points(log10(87),41.18274 , col = "purple",pch = 19)
 points(log10(87),82 , col ="orange",pch = 19)
 
-legend("topleft", inset=c(-0.1, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
-       col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
 
-legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
+legend("topright", inset=c(-0.1, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
        col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
 
 
-
+par(mfrow = c(1, 1))
 
 #Multiple R-squared:  0.04422,	Adjusted R-squared:  0.04367, F-statistic: 80.04 on 1 and 1730 DF,  p-value: < 2.2e-16, t-waarde=8.947
 #kleine p-waarde en R-squared dus weinig verklaring van het geluk
