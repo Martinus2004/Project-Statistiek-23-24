@@ -451,18 +451,6 @@ model4 = update(model4, .~.*gender);summary(model4)
 model4 = update(model4, .~.-log10(hh_income):gender);summary(model4)
 model4 = update(model4, .~.-health_emo:gender);summary(model4)
 
-
-geluksscore_geslacht_groepen = update(geluksscore_meerv_model, .~.*ind_gender)
-summary(geluksscore_geslacht_groepen)
-
-geluksscore_geslacht_groepen = update(geluksscore_geslacht_groepen, .~.-hh_income:ind_gender)
-summary(geluksscore_geslacht_groepen)
-
-geluksscore_geslacht_groepen = update(geluksscore_geslacht_groepen, .~.-health_emo:ind_gender)
-summary(geluksscore_geslacht_groepen)
-
-
-
 par(mfrow = c(1,2))
 
 plot(ind_happy ~ health_emo)
