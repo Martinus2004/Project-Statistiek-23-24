@@ -506,7 +506,7 @@ predict(geluksscore_loghhinkomen_model,data.frame(health_emo=13,hh_income=87),
 # Eenvoudig regressiemodel voor geluk in functie van het totale beschikbare inkomen van het gezin en het tweede in functie van het tiendelige logaritmevan dat inkomen.
 model1=lm(ind_happy~hh_income)
 summary(model1)
-plot(ind_happy~hh_income)
+plot(ind_happy~hh_income, xlab = "beschikbaar gezinsinkomen (euro / maand)", ylab = "geluksscore")
 abline(model1, col='red')
 x_i1 = model1$model[,2]
 y_i1 = model1$model[,1]
@@ -535,7 +535,7 @@ legend("topright", inset=c(-0.05, -0.2), legend=c("voorspelde geluksscores respo
 
 model2=lm(ind_happy~log10(hh_income))
 summary(model2)
-plot(ind_happy~log10(hh_income))
+plot(ind_happy~log10(hh_income), xlab = bquote("beschikbaar gezinsinkomen (euro / maand) (" * log[10] * " schaal)"), ylab = "geluksscore")
 abline(model2, col='red')
 x_i2 = model2$model[,2]
 y_i2 = model2$model[,1]
