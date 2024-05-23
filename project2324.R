@@ -519,11 +519,16 @@ lines(sort(x_i1), betrouwbh1[order(x_i1), 2], col='blue')
 lines(sort(x_i1), betrouwbh1[order(x_i1), 3], col='blue')
 lines(sort(x_i1), predictie1[order(x_i1), 2], col='green')
 lines(sort(x_i1), predictie1[order(x_i1), 3], col='green')
-points(1954,66 , col ="orange",pch = 19)
-points(1954,64.9363 , col = "purple",pch = 19)
-points(87,41.18274 , col = "purple",pch = 19)
-points(87,82 , col ="orange",pch = 19)
 
+points(log10(1954),66 , col ="orange",pch = 19)
+points(log10(1954), 64.9363, col = "purple",pch = 19)
+points(log10(87), 82 , col ="orange",pch = 19)
+points(log10(87), 41.18274 , col = "purple",pch = 19)
+
+text(log10(1954), 68, labels = "25503", pos = 4, offset = 0.5, col = "orange")
+text(log10(1954), 63, labels = "25503", pos = 4, offset = 0.5, col = "purple")
+text(log10(87), 82 , labels = "27010", pos = 4, offset = 0.5, col = "orange")
+text(log10(87), 41.18274 , labels = "27010", pos = 4, offset = 0.5, col = "purple")
 
 legend("topleft", inset=c(0.2, -0.2), legend=c("betrouwbaarheidsbanden", "voorspellingsbanden"),
        col=c("blue", "green"), lty = c(1, 1), lwd=c(2, 2), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
@@ -544,11 +549,18 @@ lines(sort(x_i2), betrouwbh2[order(x_i2), 2], col='blue')
 lines(sort(x_i2), betrouwbh2[order(x_i2), 3], col='blue')
 lines(sort(x_i2), predictie2[order(x_i2), 2], col='green')
 lines(sort(x_i2), predictie2[order(x_i2), 3], col='green')
-points(log10(1954),66 , col ="orange",pch = 19)
-points(log10(1954),64.9363 , col = "purple",pch = 19)
-points(log10(87),41.18274 , col = "purple",pch = 19)
-points(log10(87),82 , col ="orange",pch = 19)
 
+
+points(log10(1954),66 , col ="orange",pch = 19)
+points(log10(1954), 64.9363, col = "purple",pch = 19)
+points(log10(87), 82 , col ="orange",pch = 19)
+points(log10(87), 41.18274 , col = "purple",pch = 19)
+
+
+text(log10(1954), 68, labels = "25503", pos = 4, offset = 0.5, col = "orange")
+text(log10(1954), 63, labels = "25503", pos = 4, offset = 0.5, col = "purple")
+text(log10(87), 82 , labels = "27010", pos = 4, offset = 0.5, col = "orange")
+text(log10(87), 41.18274 , labels = "27010", pos = 4, offset = 0.5, col = "purple")
 
 legend("topright", inset=c(-0.1, -0.2), legend=c("voorspelde geluksscores respondenten 25503 en 27010", "werkelijke geluksscores respondenten 25503 en 27010"),
        col=c("purple", "orange"), pch = c(16, 16), cex=0.8, box.lty=0, bg="transparent", xpd=TRUE)
