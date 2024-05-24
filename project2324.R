@@ -358,18 +358,27 @@ sum(table(ind_income) > 1);sum(table(hh_nadult) > 1);sum(table(hh_income) > 1);s
 
 # meervoudige regressie
 
-geluksscore_meerv_model = lm(ind_happy ~ ind_age + ind_income + hh_income + health_fys + health_emo + leis_time)
-
 geluksscore_continue = data.frame(ind_age, ind_income, hh_income, health_fys, health_emo, leis_time)
 
 plot(geluksscore_continue)
 cor(geluksscore_continue)
+
+geluksscore_meerv_model = lm(ind_happy ~ ind_age + ind_income + hh_income + health_fys + health_emo + leis_time)
 
 summary(geluksscore_meerv_model)
 geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-ind_age); summary(geluksscore_meerv_model)
 geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-ind_income); summary(geluksscore_meerv_model)
 geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-leis_time); summary(geluksscore_meerv_model)
 geluksscore_meerv_model = update(geluksscore_meerv_model, .~.-health_fys); summary(geluksscore_meerv_model)
+
+
+geluksscore_meerv_loghhinkomen_model = lm(ind_happy ~ ind_age + ind_income + log10(hh_income) + health_fys + health_emo + leis_time)
+
+summary(geluksscore_meerv_loghhinkomen_model)
+geluksscore_meerv_loghhinkomen_model = update(geluksscore_meerv_loghhinkomen_model, .~.-ind_age); summary(geluksscore_meerv_loghhinkomen_model)
+geluksscore_meerv_loghhinkomen_model = update(geluksscore_meerv_loghhinkomen_model, .~.-leis_time); summary(geluksscore_meerv_loghhinkomen_model)
+geluksscore_meerv_loghhinkomen_model = update(geluksscore_meerv_loghhinkomen_model, .~.-health_fys); summary(geluksscore_meerv_loghhinkomen_model)
+geluksscore_meerv_loghhinkomen_model = update(geluksscore_meerv_loghhinkomen_model, .~.-ind_income); summary(geluksscore_meerv_loghhinkomen_model)
 
 # modelveronderstellingen meervoudig model
 
@@ -451,7 +460,7 @@ model4 = update(model4, .~.*gender);summary(model4)
 model4 = update(model4, .~.-log10(hh_income):gender);summary(model4)
 model4 = update(model4, .~.-health_emo:gender);summary(model4)
 
-par(mfrow = c(1,2))
+par(mfrow = c(1,1))
 
 plot(ind_happy ~ health_emo)
 
@@ -480,6 +489,8 @@ predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
         interval="confidence",level = 0.95)
 predict(geluksscore_loghhinkomen_model,data.frame(health_emo=58,hh_income=1954),
         interval="prediction", level = 0.95)
+
+
 # waarde=64.9363, confidence interval [64,24277; 65,62982], predictie interval [41,97872; 87,89387]
 #27010
 ind_happy[ind_ID == 27010] #=82
